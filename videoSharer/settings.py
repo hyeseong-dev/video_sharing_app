@@ -27,12 +27,24 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
+
+
+SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = [
     'videos',
     'crispy_forms',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'django.contrib.sites',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -57,7 +69,7 @@ ROOT_URLCONF = 'videoSharer.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,3 +139,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+#email
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#Sign in Redirect 
+LOGIN_REDIRECT_URL = 'index'
